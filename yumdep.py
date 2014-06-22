@@ -7,6 +7,7 @@
 # http://akozumpl.github.io/dnf/api.html
 
 import argparse
+import rpmUtils
 import sys
 import yum
 
@@ -72,7 +73,11 @@ def main():
     yumbase = yum.YumBase()
     yumbase.setCacheDir()
     try:
-        pkgs = yumbase.pkgSack.returnNewestByName(args.package)
+        pkg_parts = args.package.split(".")
+        if pkg_parts[-1] in rpmUtils.arch.getArchList():
+            pkgs = yumbase.pkgSack.returnNewestByNameArch((pkg_parts[0], pkg_parts[1]))
+        else:
+            pkgs = yumbase.pkgSack.returnNewestByName(args.package)
         deps = yumbase.findDeps(pkgs)
     except yum.Errors.PackageSackError, e:
         print e
