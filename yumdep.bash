@@ -18,4 +18,4 @@ _yumdep()
     _yum_list "$cur"
 }
 
-complete -F _yumdep -o filenames yumdep.py
+complete -F _yumdep -o filenames yumdep.py yumdep
