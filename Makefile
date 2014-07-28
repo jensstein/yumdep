@@ -1,6 +1,9 @@
 PREFIX=/usr/local
 SYSCONFDIR=/etc
 
+all:
+	@echo "nothing to do here. please run \"make install\""
+
 install:
 	mkdir -p $(PREFIX)/bin
 	install -m 755 yumdep.py $(PREFIX)/bin/yumdep
