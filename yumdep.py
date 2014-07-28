@@ -37,10 +37,12 @@ def get_deps(yumbase, package, package_list=[]):
     deps = yumbase.findDeps(package)
     for dep in deps:
         for key, values in deps[dep].iteritems():
-            value = sorted(values)[-1] # take the newest version of the package
-            if value not in package_list:
-                package_list.append(value)
-                get_deps(yumbase, [value], package_list)
+            # packages excluded in yum.conf will have values as an empty list
+            if len(values) > 0:
+                value = sorted(values)[-1] # take the newest version of the package
+                if value not in package_list:
+                    package_list.append(value)
+                    get_deps(yumbase, [value], package_list)
     return package_list
 
 def print_all_packages(package_list):
