@@ -26,10 +26,12 @@ def add_sizes(yumbase, package_list):
 def format_size(size):
     if size < 1024:
         return str(size) + " b"
-    elif size < (1024 * 1024):
+    elif size < (1024 ** 2):
         return str(round(size / 1024.0, 1)) + " k"
-    elif size < (1024 * 1024 * 1024):
-        return str(round(size / (1024.0 * 1024), 1)) + " M"
+    elif size < (1024 ** 3):
+        return str(round(size / (1024.0 ** 2), 1)) + " M"
+    elif size < (1024 ** 4):
+        return str(round(size / (1024.0 ** 3), 1)) + " G"
     else:
         return str(size)
 
